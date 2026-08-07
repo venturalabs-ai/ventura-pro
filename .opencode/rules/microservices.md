@@ -1,0 +1,21 @@
+# Regras de Microsserviços
+
+- Sempre desenhe com Bounded Contexts (DDD); evite "microsserviços técnicos".
+- Database per Service é obrigatório. Nunca compartilhe banco entre serviços.
+- Preferência por comunicação event-driven (Kafka / RabbitMQ / Redis Streams / Pub/Sub).
+- HTTP/gRPC apenas quando síncrono for inevitável.
+- Implemente Transactional Outbox para publicar eventos após escrita no banco.
+- Use Circuit Breaker + retries com exponential backoff + jitter.
+- Estrutura de pastas: domain / application / infrastructure / api.
+- Todo endpoint deve ter response_model e validação Pydantic v2.
+- Health checks separados: /health/live e /health/ready.
+- Graceful shutdown obrigatório (trate SIGTERM).
+- Em Kubernetes: HPA + PDB + maxUnavailable: 0.
+- Observabilidade: OpenTelemetry desde o início.
+- API First + Contract First: OpenAPI/Swagger obrigatório, versionamento desde o dia 1.
+- Resiliência por padrão: timeouts, bulkheads, graceful degradation, backpressure.
+- CQRS quando escrita/leitura divergirem; Saga para transações distribuídas.
+- Auth stateless: JWT + OAuth2 + API Keys.
+- Stack: FastAPI (ASGI) + Pydantic v2 + SQLAlchemy 2.0 async + asyncpg + Kafka/RabbitMQ + Redis async.
+- Docker multi-stage (python:3.12-slim, usuário não-root).
+- Connection pooling rigoroso (banco e HTTP clients).
