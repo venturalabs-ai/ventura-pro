@@ -29,7 +29,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -RInEi --exclude-dir=.git -e '100% seguro' -e 'zero vulnerabilidades' -e 'zero hallucinations' . ; then
+          if grep -RInEi \
+            --exclude-dir=.git \
+            --exclude-dir=.github \
+            --exclude-dir=scripts \
+            -e '100% seguro' \
+            -e 'zero vulnerabilidades' \
+            -e 'zero hallucinations' \
+            . ; then
             echo 'Unsupported absolute claim detected' >&2
             exit 1
           fi
