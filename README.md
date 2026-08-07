@@ -1,42 +1,50 @@
 # Ventura Pro
 
-**Ventura Pro** é um agente **Engenheiro de Software Pleno / Staff Engineer**
-especialista em Python para o [opencode](https://opencode.ai), parte do
-estúdio Gerde. Ele projeta e constrói sistemas modernos de alta escala com
-foco em arquitetura de microsserviços, performance extrema, pipelines de dados
-massivos, MLOps e DevOps.
+[![License](https://img.shields.io/github/license/venturalabs-ai/ventura-pro)](LICENSE)
+[![OpenCode](https://img.shields.io/badge/OpenCode-agent-4B5563)](https://opencode.ai/)
 
-Conhecimento alinhado às práticas de **Google**, **Microsoft**, **IBM**,
-**Oracle** e **SAP**.
+**Ventura Pro** é um agente de engenharia de software para OpenCode, com foco em Python, arquitetura de sistemas, performance, dados, MLOps, DevOps, segurança e confiabilidade.
 
-## Domínios de Excelência
+> O projeto reúne regras e prompts de engenharia inspirados em práticas públicas e amplamente adotadas na indústria. Não possui afiliação oficial com Google, Microsoft, IBM, Oracle, SAP ou outras empresas citadas como referência técnica.
 
-1. **Arquitetura de Microsserviços** — FastAPI (ASGI) + event-driven,
-   DDD/Bounded Contexts, Database per Service.
-2. **Performance extrema** — asyncio, uvloop, anyio, drivers async nativos,
-   profiling antes de otimizar.
-3. **Pipelines de dados massivos** — PySpark (DataFrames, AQE), Delta Lake,
-   Medallion Architecture, dlt, Prefect/Airflow.
-4. **MLOps e IA em produção** — PyTorch, Scikit-learn, MLflow, BentoML,
-   Vertex AI, Azure ML, SAP AI Core.
-5. **Integração de legados + cloud** — Google Cloud, Azure, IBM Cloud, Oracle
-   Cloud, SAP BTP.
-6. **DevOps / IaC / Containers** — Docker multi-stage, Kubernetes,
-   Terraform/Pulumi com Python.
-7. **CLIs robustas, testes complexos, segurança e confiabilidade.**
+## Domínios
+
+1. Microsserviços e arquiteturas orientadas a eventos
+2. FastAPI, ASGI e programação assíncrona
+3. DDD, bounded contexts e integração entre serviços
+4. Pipelines de dados com PySpark e Delta Lake
+5. MLOps, rastreabilidade de experimentos e serving
+6. Containers, Kubernetes e IaC
+7. Observabilidade com logs, métricas e traces
+8. Segurança, secrets management, retries, timeouts e circuit breakers
+9. Testes, profiling e engenharia de performance
+
+## Estrutura
+
+```text
+ventura-pro/
+├── README.md
+├── LICENSE
+└── .opencode/
+    ├── agent/
+    │   └── ventura-pro.md
+    └── rules/
+        ├── microservices.md
+        ├── mlops.md
+        ├── performance.md
+        └── pyspark.md
+```
 
 ## Instalação
 
-Copie o diretório `.opencode/` para a raiz do projeto opencode onde o agente
-deve estar disponível:
+Copie o agente e as regras para o projeto OpenCode em que deseja utilizá-los:
 
 ```powershell
-# a partir da raiz do seu projeto
 Copy-Item -Recurse .opencode\agent\ventura-pro.md seu-projeto\.opencode\agent\
 Copy-Item -Recurse .opencode\rules\* seu-projeto\.opencode\rules\
 ```
 
-Em seguida, ative o agente no `opencode.json` do projeto:
+Configure o agente padrão no `opencode.json`:
 
 ```json
 {
@@ -45,34 +53,28 @@ Em seguida, ative o agente no `opencode.json` do projeto:
 }
 ```
 
-Reinicie o opencode e selecione **Ventura Pro** no seletor de agentes (Tab).
+## Princípios de engenharia
 
-## Conteúdo
+- type hints rigorosos em código novo;
+- Pydantic v2 para contratos e validação quando aplicável;
+- profiling antes de otimização;
+- secrets fora do código-fonte;
+- observabilidade desde o desenho inicial;
+- testes automatizados para comportamento crítico;
+- logging estruturado;
+- timeouts, retries limitados e circuit breakers em integrações remotas;
+- documentação de trade-offs arquiteturais.
 
-```
-.
-├── README.md
-├── .opencode/
-│   ├── agent/
-│   │   └── ventura-pro.md   # definição e prompt do agente
-│   └── rules/
-│       ├── microservices.md # regras de microsserviços (DDD, outbox, K8s)
-│       ├── mlops.md         # regras de MLOps (MLflow, Model Registry)
-│       ├── performance.md   # regras de performance (async, uvloop)
-│       └── pyspark.md       # regras de PySpark (AQE, Delta Lake)
-```
+## Status
 
-## Princípios
-
-- Código limpo: PEP 8 + Google Python Style Guide + Clean Code.
-- Type hints rigorosos em 100% do código novo + Pydantic v2.
-- Performance first: profiling antes de otimizar.
-- Segurança e confiabilidade: secrets management, circuit breakers, retries
-  com budget, timeouts, observability.
-- Observabilidade (OpenTelemetry) desde o primeiro commit.
-- Nunca hardcode secrets; testes (pytest + pytest-asyncio) e logging
-  estruturado (JSON) sempre.
+Repositório de **agente e regras de engenharia**, não uma aplicação executável independente. Validação deve ser feita no ambiente OpenCode e nos projetos em que o agente for instalado.
 
 ## Licença
 
-[MIT](LICENSE)
+MIT — consulte [LICENSE](LICENSE).
+
+## Autor
+
+Wemerson Mota de Oliveira — Ventura Labs AI
+
+[GitHub](https://github.com/venturalabs-ai) · [LinkedIn](https://www.linkedin.com/in/wemerson-mota-de-oliveira-81aa8226/)
