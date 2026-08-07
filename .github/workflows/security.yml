@@ -1,0 +1,35 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "20 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repository-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan for accidental secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RInE --exclude-dir=.git -e 'AKIA[0-9A-Z]{16}' -e 'ghp_[A-Za-z0-9]{36}' -e 'BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY' . ; then
+            echo 'Possible secret material detected' >&2
+            exit 1
+          fi
+      - name: Reject unsupported absolute claims
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RInEi --exclude-dir=.git -e '100% seguro' -e 'zero vulnerabilidades' -e 'zero hallucinations' . ; then
+            echo 'Unsupported absolute claim detected' >&2
+            exit 1
+          fi
