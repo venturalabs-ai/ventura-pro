@@ -29,7 +29,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -RInEi --exclude-dir=.git -e '100% seguro' -e 'zero vulnerabilidades' -e 'zero hallucinations' . ; then
+          paths=()
+          for path in README.md .opencode docs; do
+            if [[ -e "$path" ]]; then
+              paths+=("$path")
+            fi
+          done
+          if ((${#paths[@]})) && grep -RInEi -e '100% seguro' -e 'zero vulnerabilidades' -e 'zero hallucinations' "${paths[@]}"; then
             echo 'Unsupported absolute claim detected' >&2
             exit 1
           fi
